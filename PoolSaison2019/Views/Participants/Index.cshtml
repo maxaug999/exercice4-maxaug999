@@ -1,0 +1,75 @@
+﻿@model IEnumerable<PoolSaison2019.Models.Participant>
+    
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.Nom)
+                    <a href='@Url.Action("Index", new { sortOrder = ViewBag.NameSortParm })'>&#x25BC;</a>
+                </div>
+            </th>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.Gains)
+                    <a href='@Url.Action("Index", new { sortOrder = ViewBag.GainsSortParm })'>&#x25BC;</a>
+                </div>
+            </th>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.Points)
+                    <a href='@Url.Action("Index", new { sortOrder = ViewBag.PointsSortParm })'>&#x25BC;</a>
+                </div>
+            </th>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.Rang)
+                    <a href='@Url.Action("Index", new { sortOrder = ViewBag.RankSortParm })'>&#x25BC;</a>
+                </div>
+            </th>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.DernierRang)
+                    <a href='@Url.Action("Index", new { sortOrder = ViewBag.LastRankSortParm })'>&#x25BC;</a>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gains)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DernierRang)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

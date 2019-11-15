@@ -1,0 +1,52 @@
+﻿@model PoolSaison2019.Models.Signature
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+</head>
+
+<h1>Exercise</h1>
+<p>
+    Dernière signature
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.Nom)
+                </div>
+            </th>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.Equipe)
+                </div>
+            </th>
+            <th>
+                <div>
+                    @Html.DisplayNameFor(model => model.Salaire)
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Equipe)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Salaire)
+            </td>
+        </tr>
+    </tbody>
+</table>
