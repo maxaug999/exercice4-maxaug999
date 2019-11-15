@@ -1,7 +1,10 @@
 language: csharp
 mono: none
 dotnet: 3.0
+services:
+- docker
 script:
 - dotnet build ./PoolSaison2019
 - dotnet build ./PoolSaison2019Tests/
 - dotnet test ./PoolSaison2019Tests/
+- docker build -t exer4 .
