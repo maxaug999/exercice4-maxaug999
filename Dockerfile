@@ -1,29 +1,34 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
+﻿# building our new image from the microsft SQL 2017 image
+FROM mcr.microsoft.com/mssql/server:latest
 
-# TODO :
-# 1) Il faut placer ce Dockerfile au même niveau que le fichier .sln
+#Les crédentials du serveur MSSQL
+ENV sa_password=1Secure*Password1				
+ENV ACCEPT_EULA=Y
 
-# 2) Travaillez dans le dossier /app du container			
-WORKDIR /app
-# 3) Copiez le contenu du dossier courant (celui du dockerfile) dans le dossier courant du container
-COPY . .
-# 4) Dans le container positionnez-vous sur le répertoire qui contient celui qui contient le code (normalement, DECInfo) 
-#Non nécessaire
-# 5) Exécuter un dotnet publish de la configuration Release dans un dossier nommé "out" (BUILD)
-RUN dotnet publish -c Release -o out
+#TODO :
+#1) Regarder ce que fait le fichier run.sh
+#2) Développer une série d'instructions pour copier le ficher run.sh et script.sql sur dans le container (ressemble beaucoup à l'exercice helloscripts)
+#   Note :  On devra faire un chmod +x sur le fichier run.sh
+#3) Faire en sorte que le fichier run.sh soit exécuté (le shell est "sh")
+#4) Spécifiez que /src est le dossier courant dans le container
+#4) Exposer le port 1433
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+CMD ["sh","/script/run.sh"]
 
-# TODO :
-# 1) Travaillez dans le dossier /app du container
-WORKDIR /app
-# 2) À partir de l'image "build" utilisée ci-haut, copiez le contenu du répertoire de publication "out" dans le dossier courant - Container "build" to container
-COPY --from=build /app/out ./
-# 3) Exposez le port 6002 (le même qui a été défini dans votre appconfig.json)
-EXPOSE 6002
-# 3) Spécifiez le point d'entrée de l'application
-ENTRYPOINT ["dotnet", "PoolSaison2019.dll"]
+COPY run.sh /script/run.sh
+#RUN chmod a+x /script/run.sh
 
-# Une fois fait, lancez le container sur le port 6002 et testez l'application dans votre navigateur
+#script local to container 
+#COPY script.sql /src/script.sql
 
+WORKDIR /src
 
+EXPOSE 1433
+
+#WORKDIR /app
+#RUN chmod +x run.sh
+#COPY run.sh ./
+#COPY script.sql ./
+#CMD["sh", "/app/run.sh"]
+#WORKDIR /src
+#EXPOSE 1433
